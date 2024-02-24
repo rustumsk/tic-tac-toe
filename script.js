@@ -14,12 +14,27 @@ function createPlayer(name, marker){
         marker,
     }
 }
+const button = document.querySelector(".start-btn").addEventListener("click", (event) =>{
+    if (document.querySelector("#input-name").value === ""){
+        alert("Please fill player 1's name!");
+        event.preventDefault;
+    }
+    else if (document.querySelector("#input-name2").value === ""){
+        alert("Please fill player 2's name!");
+        event.preventDefault;
+    }
+    else{
+        playGame.deleteAll();
+        playGame.makeUI();
+    }
+})
 
 const playGame = (function(){
     const board = GameBoard().gameBoard;
-    const player1 = createPlayer("Player1", "X");
-    const player2 = createPlayer("Player2", "O");
+    const player1 = createPlayer(" ", "X");
+    const player2 = createPlayer(" ", "O");
     let playerTurn = 0;
+    let winner = " ";
     //method for instantiating the board.
 
     const createBoard = () =>{
@@ -28,66 +43,135 @@ const playGame = (function(){
         }
         console.log(board);
     }
+  
+    function makeUI(){
+        //create the container for the board and the info.
+        const container = document.querySelector(".container");
+        container.style.flexDirection = "column";
+        const upper = document.createElement("div");
+        upper.classList.add("sample")
+        upper.classList.add("upper")
+        container.appendChild(upper);
 
-    const putMarker = () =>{
-        let choice = prompt("Where do you want to put the mark? 1-9");
-        choice = parseInt(choice);
-        if (playerTurn === 0){
-            markerPlacer(player1.marker,choice);
-            checkWinner(player1.marker,board);
-            playerTurn = 1;
+        //create the board.
+        createBoard(); //instantiates the board.
+        const brd = document.createElement("div");
+        brd.classList.add("board");
+        upper.appendChild(brd);
+        for (let i = 0; i < board.length; i++){
+            const tile = document.createElement("div");
+            tile.addEventListener("click", () => {
+                if (playerTurn == 0){
+                    if (winner !== " "){
+                        turn.textContent = `${winner} WON!`
+                    }
+                    else if (board[i] == " "){
+                        turn.textContent = `${player2.name}'s turn`;
+                        tile.style.backgroundImage = 'url("./svgs/x.svg")';
+                        board[i] = "X";
+                        tile.style.backgroundSize = '90%';
+                        checkWinner(player1.marker,board,player1.name);
+                        playerTurn = 1;
+                    }
+                }
+                else{
+                    if (winner !== " "){
+                        turn.textContent = `${winner} WON!`
+                    }
+                    else if(board[i] == " "){
+                        turn.textContent = `${player1.name}'s turn`;
+                        tile.style.backgroundImage = 'url("./svgs/o.svg")';
+                        board[i] = "O";
+                        tile.style.backgroundSize = '90%';
+                        checkWinner(player2.marker,board,player2.name);
+                        playerTurn = 0;
+                    }
+                }
+            });
+            brd.appendChild(tile);
         }
-        else if (playerTurn === 1){
-            markerPlacer(player2.marker);
-            checkWinner(player2.marker,board);
-            playerTurn = 0;
-        }
+
+        //create the information part.
+        const bottom = document.createElement("div");
+        bottom.classList.add("sample");
+        bottom.classList.add("bottom");
+        container.appendChild(bottom);
+
+        const top = document.createElement("div");
+        top.classList.add("top");
+        bottom.appendChild(top);
+
+        const d1 = document.createElement("div");
+        d1.textContent = player1.name;
+        const d2 = document.createElement("div");
+        d2.textContent = player2.name;
+        top.appendChild(d1);
+        top.appendChild(d2);
+
+        const bot = document.createElement("div");
+        bot.classList.add("bot");
+        bottom.appendChild(bot);
+
+        const turn = document.createElement("div");
+        turn.classList.add("turn");
+        turn.textContent = `${player1.name}'s turn`;
+        bot.appendChild(turn);
     }
 
-    const checkWinner = (marker,board) =>{
-        if (board[0] && board[1] && board[2] === marker){ //first row
-            console.log("Winner!");
+    function deleteAll(){
+        player1.name = document.querySelector("#input-name").value;
+        player2.name = document.querySelector("#input-name2").value;
+        const container = document.querySelector(".container");
+        while(container.firstChild){
+            container.removeChild(container.firstChild);
         }
-        else if (board[3] && board[4] && board[5] === marker){ //second row
-            console.log("Winner!");
+    }
+    //this checks if there is a winning tile or its a tie.
+    const checkWinner = (marker,board,name) =>{
+        if (board[0] === marker && board[1] === marker && board[2] === marker){ //first row
+            alert(`The winner is ${name}`);
+            winner = name;
         }
-        else if (board[6] && board[7] && board[8] === marker){ //third row
-            console.log("Winner!");
-        }
-        else if (board[0]&&
-                 board[3]&&
+        else if (board[3]=== marker && board[4]=== marker && board[5] === marker){ //second row
+            alert(`The winner is ${name}`);
+            winner = name;        }
+        else if (board[6]=== marker && board[7]=== marker && board[8] === marker){ //third row
+            alert(`The winner is ${name}`);
+            winner = name;      }
+        else if (board[0]=== marker&&
+                 board[3]=== marker&&
                  board[6] === marker){ //first column
-            console.log("Winner!");
-        }
-        else if (board[1]&&
-                 board[4]&&
+                    alert(`The winner is ${name}`);
+                    winner = name;       }
+        else if (board[1]=== marker&&
+                 board[4]=== marker&&
                  board[7] === marker){ //second column
-            console.log("Winner!");
-        }
-        else if (board[2]&&
-                 board[5]&&
+                    alert(`The winner is ${name}`);
+                    winner = name;
+                    turn.textContent = `${name} WON! Congratulations`;        }
+        else if (board[2]=== marker&&
+                 board[5]=== marker&&
                  board[8] === marker){ //third column
-            console.log("Winner!");
-        }
-        else if (board[0]&&
-                 board[4]&&
+                    alert(`The winner is ${name}`);
+                    winner = na;      }
+        else if (board[0]=== marker&&
+                 board[4]=== marker&&
                  board[8] === marker){ //upper left to bottom right
-            console.log("Winner!");
-        }
-        else if (board[2]&&
-                 board[4]&&
+                    alert(`The winner is ${name}`);
+                    winner = name;
+      }
+        else if (board[2]=== marker&&
+                 board[4]=== marker&&
                  board[6] === marker){ //upper right to bottom left
-            console.log("Winner!");
-        }
-
-    }
-    function markerPlacer(marker,choice){
-        let index = choice - 1;
-        board[index] = marker;
+                    alert(`The winner is ${name}`);
+                    winner = name;        }
     }
     return{
         createBoard,
         board,
-        putMarker,
+        deleteAll,
+        makeUI,
+        player1,
+        player2,
     }
 })();

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
     <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
@@ -11,17 +11,42 @@
     <div class="container">
         <div class="item player1">
             <form action="">
-                <label for="input-name">Player 2 Name</label>
-                <input type="text" id="input-name">
+                <label for="input-name">Player 1 Name</label>
+                <input type="text" id="input-name" placeholder="player1">
             </form>
         </div>
-        <div class="item start"><button class = "start-btn">Start</button></div>
+        <div class="item start"><button class ="start-btn">Start</button></div>
         <div class="item player2">
             <form action="">
-                <label for="input-name">Player 2 Name</label>
-                <input type="text" id="input-name">
+                <label for="input-name2">Player 2 Name</label>
+                <input type="text" id="input-name2" placeholder="player2">
             </form>
         </div>
     </div>
+
+        <!--
+        <div class="sample upper">
+            <div class="board">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div class="sample bottom">
+            <div class="top">
+                <div>Player1</div>
+                <div>Player2</div>
+            </div>
+            <div class="bot">
+                <div class="turn">Player Turn</div>
+            </div>
+        </div>
+        -->
 </body>
 </html>

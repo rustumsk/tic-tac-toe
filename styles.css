@@ -2,6 +2,7 @@
     --main-color: #1F2833;
     --secondary-color: #66FCF1;
     --third-color: #0B0C10;
+    --fourth-color: #FF39A4;
 }
 body{
     margin: 0;
@@ -9,15 +10,15 @@ body{
     height: 100vh;
     display: flex;
     background-color: var(--main-color);
-    color: var(--secondary-color);
+    color: white;
 }
 .container{
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4rem;
-    
+    flex-wrap: wrap;
+    gap: 2rem;
 }
 .item{
     width: 10rem;
@@ -34,7 +35,10 @@ form>input{
     outline: none;
 }
 form>input:focus{
-    box-shadow: 0 0 8rem 5rem var(--third-color);
+    background-color: rgb(255, 255, 255, .3);
+    color: white;
+    border-bottom: var(--third-color) solid 2px;
+    box-shadow: 0 0 50px 15px #48abe0;
 }
 label{
     text-align: center;
@@ -58,4 +62,64 @@ label{
 }
 .start-btn:hover{
     box-shadow: 0 0 50px 15px var(--secondary-color);
+}
+
+.sample{
+    flex: 1;
+    height: 30rem;
+    width: 70rem;
+}
+.upper{
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.board{
+    flex: auto;
+    height: 35rem;
+    max-width: 45rem;
+    padding: 1rem;
+    border: var(--fourth-color) solid 2px;
+    box-shadow: 0 0 20px 10px var(--fourth-color);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    background-color: var(--third-color)
+}
+.board div{
+    background-color: var(--main-color);
+    border: solid 2px var(--secondary-color);
+    text-align: center;
+}
+.board div:hover{
+    background-color: var(--secondary-color);
+}
+.bottom{
+    display: flex;
+    flex-direction: column;
+}
+.bottom div{
+    flex: auto;
+}
+.top{
+    display: flex;
+}
+.top div{
+    text-align: center;
+    color: var(--secondary-color);
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+.bot{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+.bot div{
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
 }
