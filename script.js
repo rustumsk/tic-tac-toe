@@ -64,7 +64,7 @@ const playGame = (function(){
             tile.addEventListener("click", () => {
                 if (playerTurn == 0){
                     if (winner !== " "){
-                        turn.textContent = `${winner} WON!`
+                        return;
                     }
                     else if (board[i] == " "){
                         turn.textContent = `${player2.name}'s turn`;
