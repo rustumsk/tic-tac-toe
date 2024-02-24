@@ -35,6 +35,7 @@ const playGame = (function(){
     const player2 = createPlayer(" ", "O");
     let playerTurn = 0;
     let winner = " ";
+    let tieCounter = 0;
     //method for instantiating the board.
 
     const createBoard = () =>{
@@ -70,19 +71,22 @@ const playGame = (function(){
                         tile.style.backgroundImage = 'url("./svgs/x.svg")';
                         board[i] = "X";
                         tile.style.backgroundSize = '90%';
-                        checkWinner(player1.marker,board,player1.name);
+                        tieCounter += 1;
                         playerTurn = 1;
+                        checkWinner(player1.marker,board,player1.name);
                     }
                 }
                 else{
                     if (winner !== " "){
-                        turn.textContent = `${winner} WON!`
+                        return;
                     }
                     else if(board[i] == " "){
                         turn.textContent = `${player1.name}'s turn`;
                         tile.style.backgroundImage = 'url("./svgs/o.svg")';
                         board[i] = "O";
                         tile.style.backgroundSize = '90%';
+                        tieCounter += 1;
+                        console.log(tieCounter);
                         checkWinner(player2.marker,board,player2.name);
                         playerTurn = 0;
                     }
@@ -128,43 +132,60 @@ const playGame = (function(){
     }
     //this checks if there is a winning tile or its a tie.
     const checkWinner = (marker,board,name) =>{
+        const turn = document.querySelector(".turn");
         if (board[0] === marker && board[1] === marker && board[2] === marker){ //first row
             alert(`The winner is ${name}`);
             winner = name;
+            turn.textContent = `${name} WON! Congratulations`;    
         }
         else if (board[3]=== marker && board[4]=== marker && board[5] === marker){ //second row
             alert(`The winner is ${name}`);
-            winner = name;        }
+            winner = name;
+            turn.textContent = `${name} WON! Congratulations`;            
+        }
         else if (board[6]=== marker && board[7]=== marker && board[8] === marker){ //third row
             alert(`The winner is ${name}`);
-            winner = name;      }
+            winner = name;
+            turn.textContent = `${name} WON! Congratulations`;          
+        }
         else if (board[0]=== marker&&
                  board[3]=== marker&&
                  board[6] === marker){ //first column
                     alert(`The winner is ${name}`);
-                    winner = name;       }
+                    winner = name;
+                    turn.textContent = `${name} WON! Congratulations`;          
+        }
         else if (board[1]=== marker&&
                  board[4]=== marker&&
                  board[7] === marker){ //second column
                     alert(`The winner is ${name}`);
                     winner = name;
-                    turn.textContent = `${name} WON! Congratulations`;        }
+                    turn.textContent = `${name} WON! Congratulations`;       
+        }
         else if (board[2]=== marker&&
                  board[5]=== marker&&
                  board[8] === marker){ //third column
                     alert(`The winner is ${name}`);
-                    winner = na;      }
+                    winner = na;      
+                    turn.textContent = `${name} WON! Congratulations`;    
+        }
         else if (board[0]=== marker&&
                  board[4]=== marker&&
                  board[8] === marker){ //upper left to bottom right
                     alert(`The winner is ${name}`);
                     winner = name;
-      }
+        }
         else if (board[2]=== marker&&
                  board[4]=== marker&&
                  board[6] === marker){ //upper right to bottom left
                     alert(`The winner is ${name}`);
-                    winner = name;        }
+                    winner = name;
+                    turn.textContent = `${name} WON! Congratulations`;            
+        }
+        else if (tieCounter === 9){
+                alert("The game is a tie!");
+                turn.textContent = "The game is a tie";
+        }
     }
     return{
         createBoard,
